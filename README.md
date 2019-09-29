@@ -1,9 +1,9 @@
-##Go IP/CIDR Converter
+## Go IP/CIDR Converter
 
 A simple library for calculating ranges from CIDR and vice-versa.
 
-###Example
-####CIDR to IP Range
+### Example
+#### CIDR to IP Range
 ```go
 cidr, err := goip.NewCIDR("10.42.0.0/21")
 low, high := cidr.ToRange()
@@ -17,7 +17,7 @@ CIDR - 10.42.0.0/21
 Low  - 10.42.0.0
 High - 10.42.7.255
 ```
-####IP Range to CIDR
+#### IP Range to CIDR
 ```go
 lowAddr, err := goip.NewV4Address("10.42.0.0")
 if err != nil {
