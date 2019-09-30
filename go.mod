@@ -1,3 +1,3 @@
-module github.com/dhdanie/goit
+module github.com/dhdanie/goip
 
 go 1.13
