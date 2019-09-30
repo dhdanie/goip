@@ -17,6 +17,9 @@ type CIDR struct {
 	bitmask uint
 }
 
+//NewCIDR returns a new instance of CIDR based on the passed parameter.
+//The single import parameter must represent a CIDR in the form of N.N.N.N/M where each N is an integer value between
+//0 and 255 (inclusive) and M is the CIDR mask whose value must fall between 0 and 32 (inclusive)
 func NewCIDR(cidr string) (*CIDR, error) {
 	var err error
 
@@ -42,6 +45,8 @@ func NewCIDR(cidr string) (*CIDR, error) {
 	return &cidrBlock, nil
 }
 
+//NewCIDRFromRange returns a new instance of CIDR based on the passed parameter.
+//The import parameters are the lowest and highest IP addresses of the range of IPs of the resulting CIDR.
 func NewCIDRFromRange(low *V4Address, high *V4Address) (*CIDR, error) {
 	highIps := high.getIpCount()
 	lowIps := low.getIpCount()
@@ -58,11 +63,14 @@ func NewCIDRFromRange(low *V4Address, high *V4Address) (*CIDR, error) {
 	return &cidrBlock, nil
 }
 
+//ToRange returns the lowest and highest (in that order) IPs represented by this CIDR
 func (b *CIDR) ToRange() (*V4Address, *V4Address) {
 	o0m, o1m, o2m, o3m := b.calcOctetMasks()
 	return b.calcLow(o0m, o1m, o2m, o3m), b.calcHigh(o0m, o1m, o2m, o3m)
 }
 
+//String returns the string representation of this CIDR in the format N.N.N.N/M where each N is an integer value between
+//0 and 255 (inclusive) and M is the CIDR mask whose value will fall between 0 and 32 (inclusive)
 func (b *CIDR) String() string {
 	return fmt.Sprintf("%s/%d", b.addr.String(), b.bitmask)
 }

@@ -14,6 +14,8 @@ type V4Address struct {
 	octet3 uint
 }
 
+//NewV4AddressFromOctets returns a new instance of V4Address whose octets correspond to the passed parameters
+//The octets to-be-used should be passed in order of most-significance to the least-significant.
 func NewV4AddressFromOctets(octet3 uint, octet2 uint, octet1 uint, octet0 uint) (*V4Address, error) {
 	if octet3 < 0 || octet3 > 255 {
 		return nil, fmt.Errorf("invalid octet value - %d", octet3)
@@ -36,6 +38,8 @@ func NewV4AddressFromOctets(octet3 uint, octet2 uint, octet1 uint, octet0 uint) 
 	}, nil
 }
 
+//NewV4Address returns a new instance of V4Address that corresponds to the IP address specified in the parameter.
+//The address parameter must take the form N.N.N.N where the N's correspond to some number value between 0 and 255
 func NewV4Address(address string) (*V4Address, error) {
 	toks := strings.Split(address, ".")
 	if len(toks) != 4 {
@@ -90,6 +94,7 @@ func (a *V4Address) getIpCount() int {
 	return o3Count + o2Count + o1Count + o0Count + 1
 }
 
+//String returns the string representation of this V4Address in the N.N.N.N format
 func (a *V4Address) String() string {
 	return fmt.Sprintf("%d.%d.%d.%d", a.octet3, a.octet2, a.octet1, a.octet0)
 }
